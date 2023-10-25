@@ -4,9 +4,68 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ToolBoard"
+        xmlns:pageId ="clr-namespace:ToolBoard.Enums"
+        xmlns:views ="clr-namespace:ToolBoard.Views"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <ResourceDictionary>
+            <Style x:Key="btnStyle" TargetType="{x:Type Button}">
+                <Setter Property="Height" Value="70"/>
+                <Setter Property="Width" Value="70"/>
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="Margin" Value="5,0"/>
+            </Style>   
+            
+            <DataTemplate x:Key="view1">
+                <views:View1/>
+            </DataTemplate>
+            
+            <DataTemplate x:Key="view2">
+                <views:View2 />
+            </DataTemplate>
+            
+            <DataTemplate x:Key="view3">
+                <views:View3 />
+            </DataTemplate> 
+            
+        </ResourceDictionary>
+    </Window.Resources>
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="*"/>
+           
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Background="#FF0D0A65">
+            <StackPanel  Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Style="{StaticResource btnStyle}" Content="View 1" Command="{Binding CMD_ChangePage}" CommandParameter="{x:Static pageId:PageId.View1}"/>
+                <Button Style="{StaticResource btnStyle}" Content="View 2" Command="{Binding CMD_ChangePage}" CommandParameter="{x:Static pageId:PageId.View2}"/>
+                <Button Style="{StaticResource btnStyle}" Content="View 3" Command="{Binding CMD_ChangePage}" CommandParameter="{x:Static pageId:PageId.View3}"/>
+            </StackPanel>
+        </Grid>
+      
 
+        <ContentControl Grid.Row="1">
+            <ContentControl.Style>
+                <Style TargetType="{x:Type ContentControl}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding PageId, NotifyOnSourceUpdated=True,UpdateSourceTrigger=PropertyChanged}" Value="{x:Static  pageId:PageId.View1}">
+                            <Setter Property="ContentTemplate" Value="{StaticResource view1}"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding PageId, NotifyOnSourceUpdated=True,UpdateSourceTrigger=PropertyChanged}" Value="{x:Static  pageId:PageId.View2}">
+                            <Setter Property="ContentTemplate" Value="{StaticResource view2}"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding PageId, NotifyOnSourceUpdated=True,UpdateSourceTrigger=PropertyChanged}" Value="{x:Static  pageId:PageId.View3}">
+                            <Setter Property="ContentTemplate" Value="{StaticResource view3}"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                  
+                </Style>
+            </ContentControl.Style>
+        </ContentControl>
+
+        
+        
     </Grid>
 </Window>
