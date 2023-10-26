@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:ToolBoard"
         xmlns:pageId ="clr-namespace:ToolBoard.Enums"
         xmlns:views ="clr-namespace:ToolBoard.Views"
+        xmlns:custom="clr-namespace:ToolBoard.CustomControls"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Window.Resources>
@@ -14,7 +15,7 @@
                 <Setter Property="Height" Value="70"/>
                 <Setter Property="Width" Value="70"/>
                 <Setter Property="FontSize" Value="20"/>
-                <Setter Property="Margin" Value="5,0"/>
+                <Setter Property="Margin" Value="5"/>
             </Style>   
             
             <DataTemplate x:Key="view1">
@@ -32,21 +33,27 @@
         </ResourceDictionary>
     </Window.Resources>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="100"/>
-            <RowDefinition Height="*"/>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="300"/>
+        </Grid.ColumnDefinitions>
+        
+        <Grid Grid.Column="0" Background="Silver">
            
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Background="#FF0D0A65">
-            <StackPanel  Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Style="{StaticResource btnStyle}" Content="View 1" Command="{Binding CMD_ChangePage}" CommandParameter="{x:Static pageId:PageId.View1}"/>
-                <Button Style="{StaticResource btnStyle}" Content="View 2" Command="{Binding CMD_ChangePage}" CommandParameter="{x:Static pageId:PageId.View2}"/>
-                <Button Style="{StaticResource btnStyle}" Content="View 3" Command="{Binding CMD_ChangePage}" CommandParameter="{x:Static pageId:PageId.View3}"/>
-            </StackPanel>
+            <ScrollViewer>
+                <StackPanel  Orientation="Vertical" HorizontalAlignment="Center" >                   
+                    <Button Style="{StaticResource btnStyle}" Content="View 1" Command="{Binding CMD_ChangePage}" CommandParameter="{x:Static pageId:PageId.View1}"/>
+                    <Button Style="{StaticResource btnStyle}" Content="View 2" Command="{Binding CMD_ChangePage}" CommandParameter="{x:Static pageId:PageId.View2}"/>
+                    <Button Style="{StaticResource btnStyle}" Content="View 3" Command="{Binding CMD_ChangePage}" CommandParameter="{x:Static pageId:PageId.View3}"/>
+                </StackPanel>
+            </ScrollViewer>
+          
         </Grid>
       
 
-        <ContentControl Grid.Row="1">
+        <ContentControl  Grid.Column="1">
             <ContentControl.Style>
                 <Style TargetType="{x:Type ContentControl}">
                     <Style.Triggers>
@@ -64,8 +71,8 @@
                 </Style>
             </ContentControl.Style>
         </ContentControl>
+        <custom:AnalogUhr Grid.Column="2" ShowSeconds="True"/>
 
-        
-        
+
     </Grid>
 </Window>

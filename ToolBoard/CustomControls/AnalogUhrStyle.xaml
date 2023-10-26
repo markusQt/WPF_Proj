@@ -1,0 +1,27 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:ToolBoard.CustomControls">
+    <Style TargetType="local:AnalogUhr">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:AnalogUhr">
+                    <ControlTemplate.Resources>
+                        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+                    </ControlTemplate.Resources>
+                    <Grid RenderTransformOrigin="0.5,0.5">
+                        <Grid.RenderTransform>
+                            <RotateTransform Angle="90"/>
+                        </Grid.RenderTransform>
+                        <Line x:Name="PART_HourHand" Stroke="Black" StrokeThickness="2" VerticalAlignment="Center" HorizontalAlignment="Center" X1="0" X2="-80"/>
+                        <Line x:Name="PART_MinHand" Stroke="Black" StrokeThickness="1" VerticalAlignment="Center" HorizontalAlignment="Center" X1="0" X2="-60"/>
+                        <Line x:Name="PART_SecHand" Visibility="{TemplateBinding ShowSeconds,Converter={StaticResource BooleanToVisibilityConverter }}" Stroke="Red" StrokeThickness="1" VerticalAlignment="Center" HorizontalAlignment="Center" X1="0" X2="-100"/>
+                      
+                        <Ellipse x:Name="PART_Border" Stroke="Black" StrokeThickness="1" Height="210" Width="210" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+    </Style>
+    
+</ResourceDictionary>
